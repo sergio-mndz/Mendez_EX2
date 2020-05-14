@@ -65,7 +65,6 @@ int main(void) {
 	NVIC_enable_interrupt_and_priotity(DMA_CH0_IRQ, PRIORITY_5);
 	initPlayer();
 	NVIC_global_enable_interrupts;
-	PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_PIT);
 
     while(1) {
     	term_state = state_function[term_state](UART_0);

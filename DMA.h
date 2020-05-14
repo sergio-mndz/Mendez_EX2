@@ -19,4 +19,6 @@ void DMA_SADDR_Reset();
 
 uint8_t DMA_SADDR_Check();
 
+void DMA_disable();
+
 #endif /* DIAZ_DE_SANDI_MENDEZ_P4_DMA_H_ */
