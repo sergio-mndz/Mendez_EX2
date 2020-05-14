@@ -16,6 +16,9 @@
 #define LETTER_G 103
 #define LETTER_H 104
 #define LETTER_J 106
+#define ENTER_CHAR 13
+#define ESC_CHAR 27
+#define MAX_NOTES 10
 
 #include "MK64F12.h"
 #include "DAC.h"
@@ -63,7 +66,7 @@ Menu_states_t menu_state(uart_channel_t terminal)
 	static uint8_t menu_initialized = FALSE;
 	Menu_states_t state = MENU_ST;
 
-	if(0 == menu_initialized[terminal])
+	if(FALSE == menu_initialized)
 	{
 		UART_put_string(terminal, "\033[2J");
 		UART_put_string(terminal, "\033[38;5;202m");
@@ -103,12 +106,65 @@ Menu_states_t manual_state(uart_channel_t terminal)
 
 	if(FALSE == manual_menu_initialized)
 	{
-		showManual_Display();
-		manual_menu_initialized = FALSE;
+		showManual_Display(terminal);
+		manual_menu_initialized = TRUE;
 	}
 
 	if(UART_MailBoxFlag(terminal))
 	{
 		uint8_t data = UART_MailBoxData(terminal);
+		if(data == LETTER_A || data == LETTER_S || data == LETTER_D ||
+		   data == LETTER_F || data == LETTER_G || data == LETTER_H ||
+		   data == LETTER_J)
+		{
+			switch(data)
+			{
+
+			}
+		}
+		else if(data == ESC_CHAR)
+		{
+			manual_menu_initialized = FALSE;
+			state = MENU_ST;
+		}
 	}
+	return state;
+}
+
+Menu_states_t sequence_state(uart_channel_t terminal)
+{
+	static uint8_t sequence_menu_initialized = FALSE;
+	static uint8_t counter = 0;
+	Menu_states_t state = SEQUENCE_ST;
+
+	if(FALSE == sequence_menu_initialized)
+	{
+		showSequence_Display(terminal);
+		sequence_menu_initialized = FALSE;
+	}
+
+	if(UART_MailBoxFlag(terminal))
+	{
+		uint8_t data = UART_MailBoxData(terminal);
+		if(data == LETTER_A || data == LETTER_S || data == LETTER_D ||
+		   data == LETTER_F || data == LETTER_G || data == LETTER_H ||
+		   data == LETTER_J)
+		{
+			if(counter < MAX_NOTES)
+			{
+				g_notes[counter] = data;
+				counter++;
+			}
+		}
+		else if(ESC_CHAR == data)
+		{
+			sequence_menu_initialized = FALSE;
+			state = MENU_ST;
+		}
+		else if(ENTER_CHAR == data)
+		{
+
+		}
+	}
+	return state;
 }

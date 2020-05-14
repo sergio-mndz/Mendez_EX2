@@ -53,15 +53,14 @@ void showManual_Display(uart_channel_t terminal)
 	UART_put_string(terminal,"\r\n");
 }
 
-void show_Hour(uart_channel_t terminal)
+void showSequence_Display(uart_channel_t terminal)
 {
-	UART_put_string(terminal,"\033[4;5H");
-	Hour_to_String_cast(terminal);
+	UART_put_string(terminal,"\033[2J");
+	UART_put_string(terminal,"\033[38;5;202m");
+	UART_put_string(terminal,"\033[48;5;15m");
+	UART_put_string(terminal,"\033[H");
+	UART_put_string(terminal,"Modo secuencia \r\n");
+	UART_put_string(terminal,"\r\n");
 }
 
-void show_Date(uart_channel_t terminal)
-{
-	UART_put_string(terminal,"\033[4;5H");
-	Date_to_String_cast(terminal);
-}
 
