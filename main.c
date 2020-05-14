@@ -9,6 +9,13 @@
 #define SYS_CLK 21000000
 #define MAN_MODE 1
 #define SEQ_MODE 2
+#define LETTER_A 97
+#define LETTER_S 115
+#define LETTER_D 100
+#define LETTER_F 102
+#define LETTER_G 103
+#define LETTER_H 104
+#define LETTER_J 106
 
 #include "MK64F12.h"
 #include "DAC.h"
@@ -75,19 +82,33 @@ Menu_states_t menu_state(uart_channel_t terminal)
 		/* Checks if it's a valid value */
 		if(MAN_MODE == data)
 		{
+			menu_initialized = FALSE;
 			state = MANUAL_ST;
+
 		}
 		else if(SEQ_MODE == data)
 		{
+			menu_initialized = FALSE;
 			state = SEQUENCE_ST;
 		}
 	}
 	return state;
 }
 
+
 Menu_states_t manual_state(uart_channel_t terminal)
 {
 	static uint8_t manual_menu_initialized = FALSE;
 	Menu_states_t state = MANUAL_ST;
 
+	if(FALSE == manual_menu_initialized)
+	{
+		showManual_Display();
+		manual_menu_initialized = FALSE;
+	}
+
+	if(UART_MailBoxFlag(terminal))
+	{
+		uint8_t data = UART_MailBoxData(terminal);
+	}
 }

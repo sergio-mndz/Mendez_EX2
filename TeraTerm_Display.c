@@ -43,13 +43,13 @@ void terminal_init(uart_channel_t uart_channel, uint32_t system_clk, uart_baud_r
 	UART_put_string(uart_channel,"\033[10;10H");
 }
 
-void showHour_Display(uart_channel_t terminal)
+void showManual_Display(uart_channel_t terminal)
 {
 	UART_put_string(terminal,"\033[2J");
 	UART_put_string(terminal,"\033[38;5;202m");
 	UART_put_string(terminal,"\033[48;5;15m");
 	UART_put_string(terminal,"\033[H");
-	UART_put_string(terminal,"La hora actual es: \r\n");
+	UART_put_string(terminal,"Modo manual \r\n");
 	UART_put_string(terminal,"\r\n");
 }
 

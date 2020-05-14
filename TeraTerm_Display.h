@@ -22,7 +22,8 @@ typedef enum{
 void terminal_init(uart_channel_t uart_channel, uint32_t system_clk, uart_baud_rate_t baud_rate);
 
 
-void showHour_Display(uart_channel_t terminal);
+
+void showManual_Display(uart_channel_t terminal);
 
 
 void setHour_Display(uart_channel_t terminal);
