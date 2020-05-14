@@ -62,8 +62,7 @@ int main(void) {
 	DAC_clock_gating();
 	DAC_init();
 	NVIC_enable_interrupt_and_priotity(DMA_CH0_IRQ, PRIORITY_5);
-	NVIC_enable_interrupt_and_priotity(PIT_CH0_IRQ, PRIORITY_10);
-	NVIC_enable_interrupt_and_priotity(PIT_CH1_IRQ, PRIORITY_6);
+	NVIC_enable_interrupt_and_priotity(PIT_CH1_IRQ, PRIORITY_3);
 	NVIC_global_enable_interrupts;
 
     while(1) {
