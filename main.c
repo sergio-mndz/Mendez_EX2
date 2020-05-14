@@ -48,6 +48,18 @@ uint8_t g_notes[10];
 
 int main(void) {
 
+	Menu_states_t (* state_function[]) (uart_channel_t) =
+	{
+			menu_state,
+			manual_state,
+			sequence_state
+	};
+
+	terminal_init(UART_0, SYSTEM_CLOCK, BD_115200);
+
+
+	Menu_states_t term_state = MENU_ST;
+
 	DAC_clock_gating();
 	DAC_init();
 	NVIC_enable_interrupt_and_priotity(DMA_CH0_IRQ, PRIORITY_5);
@@ -56,10 +68,12 @@ int main(void) {
 	PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_PIT);
 
     while(1) {
-
+    	term_state = state_function[term_state](UART_0);
     }
     return 0 ;
 }
+
+
 
 Menu_states_t menu_state(uart_channel_t terminal)
 {

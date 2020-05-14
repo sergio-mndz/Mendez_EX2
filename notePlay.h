@@ -12,4 +12,6 @@ void initPlayer();
 
 void play_Signal();
 
+void play_Manual(uint8_t note);
+
 #endif /* MENDEZ_EX2_NOTEPLAY_H_ */
