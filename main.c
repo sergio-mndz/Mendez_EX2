@@ -6,7 +6,6 @@
 #include <stdio.h>
 
 #define DELAY_PIT 0.0001
-#define SYS_CLK 21000000
 #define MAN_MODE 1
 #define SEQ_MODE 2
 #define LETTER_A 97

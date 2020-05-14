@@ -30,6 +30,8 @@
 #define DELAY_J 0.0002
 #define DELAY_NOTE 1.0
 
+extern uint8_t pit1_inter_status;
+
 void initPlayer()
 {
 	DMA_clock_gating();
