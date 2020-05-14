@@ -174,7 +174,7 @@ Menu_states_t sequence_state(uart_channel_t terminal)
 		}
 		else if(ENTER_CHAR == data)
 		{
-			play_Sequence(&g_notes, counter);
+			play_Sequence(&g_notes[0], counter);
 		}
 	}
 	return state;

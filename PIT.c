@@ -11,6 +11,7 @@ static void (*PIT_2_callback)(void) = 0;
 static void (*PIT_3_callback)(void) = 0;
 
 static PIT_interrupt_flags_t g_intrPIT_status_flag = {0};
+uint8_t pit1_inter_status = FALSE;
 
 void PIT_callback_init(PIT_timer_t pit_timer, void (*handler)(void)) {
 	if (PIT_0 == pit_timer) {
@@ -35,6 +36,7 @@ void PIT0_IRQHandler(void)
 
 void PIT1_IRQHandler(void)
 {
+	pit1_inter_status = TRUE;
 	g_intrPIT_status_flag.flag_PIT_channel_1 = TRUE;
 	PIT_clear_interrupt(PIT_1);
 }

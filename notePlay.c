@@ -48,42 +48,64 @@ void play_Signal()
 
 void play_Manual(uint8_t note)
 {
+	PIT_delayFloat(PIT_1, SYS_CLK, DELAY_NOTE);
 	switch(note)
 	{
 	case LETTER_A:
 		PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_A);
 		initPlayer();
-		play_Signal();
+		while(FALSE == pit1_inter_status){
+			play_Signal();
+		}
+		DMA_disable();
 		break;
 	case LETTER_S:
 		PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_S);
 		initPlayer();
-		play_Signal();
+		while(FALSE == pit1_inter_status){
+			play_Signal();
+		}
+		DMA_disable();
 		break;
 	case LETTER_D:
 		PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_D);
 		initPlayer();
-		play_Signal();
+		while(FALSE == pit1_inter_status){
+			play_Signal();
+		}
+		DMA_disable();
 		break;
 	case LETTER_F:
 		PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_F);
 		initPlayer();
-		play_Signal();
+		while(FALSE == pit1_inter_status){
+			play_Signal();
+		}
+		DMA_disable();
 		break;
 	case LETTER_G:
 		PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_G);
 		initPlayer();
-		play_Signal();
+		while(FALSE == pit1_inter_status){
+			play_Signal();
+		}
+		DMA_disable();
 		break;
 	case LETTER_H:
 		PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_H);
 		initPlayer();
-		play_Signal();
+		while(FALSE == pit1_inter_status){
+			play_Signal();
+		}
+		DMA_disable();
 		break;
 	case LETTER_J:
 		PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_J);
 		initPlayer();
-		play_Signal();
+		while(FALSE == pit1_inter_status){
+			play_Signal();
+		}
+		DMA_disable();
 		break;
 	}
 }
