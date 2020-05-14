@@ -90,4 +90,7 @@ uint8_t DMA_SADDR_Check()
 	return (uint8_t) (DMA0->TCD[0].SADDR >= (uint32_t)&(DAC_SineWave[MAX-4]));
 }
 
-void DMA
+void DMA_disable()
+{
+	DMAMUX->CHCFG[0] = ~DMAMUX_CHCFG_ENBL_MASK;
+}

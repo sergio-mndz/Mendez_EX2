@@ -53,37 +53,45 @@ void play_Manual(uint8_t note)
 	case LETTER_A:
 		PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_A);
 		initPlayer();
-		playSignal();
+		play_Signal();
 		break;
 	case LETTER_S:
 		PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_S);
 		initPlayer();
-		playSignal();
+		play_Signal();
 		break;
 	case LETTER_D:
 		PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_D);
 		initPlayer();
-		playSignal();
+		play_Signal();
 		break;
 	case LETTER_F:
 		PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_F);
 		initPlayer();
-		playSignal();
+		play_Signal();
 		break;
 	case LETTER_G:
 		PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_G);
 		initPlayer();
-		playSignal();
+		play_Signal();
 		break;
 	case LETTER_H:
 		PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_H);
 		initPlayer();
-		playSignal();
+		play_Signal();
 		break;
 	case LETTER_J:
 		PIT_delayFloat(PIT_0 , SYS_CLK, DELAY_J);
 		initPlayer();
-		playSignal();
+		play_Signal();
 		break;
+	}
+}
+
+void play_Sequence(uint8_t* array, uint8_t len)
+{
+	for(uint8_t i=0; i<len; i++)
+	{
+		play_Manual(array[i]);
 	}
 }

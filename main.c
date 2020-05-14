@@ -130,13 +130,11 @@ Menu_states_t manual_state(uart_channel_t terminal)
 		   data == LETTER_F || data == LETTER_G || data == LETTER_H ||
 		   data == LETTER_J)
 		{
-			switch(data)
-			{
-
-			}
+			play_Manual(data);
 		}
 		else if(data == ESC_CHAR)
 		{
+			DMA_disable();
 			manual_menu_initialized = FALSE;
 			state = MENU_ST;
 		}
@@ -176,7 +174,7 @@ Menu_states_t sequence_state(uart_channel_t terminal)
 		}
 		else if(ENTER_CHAR == data)
 		{
-
+			play_Sequence(&g_notes, counter);
 		}
 	}
 	return state;
