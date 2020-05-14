@@ -7,8 +7,34 @@
 
 #define DELAY_PIT 0.0001
 #define SYS_CLK 21000000
+#define MAN_MODE 1
+#define SEQ_MODE 2
 
 #include "MK64F12.h"
+#include "DAC.h"
+#include "Bits.h"
+#include "DMA.h"
+#include "GPIO.h"
+#include "notePlay.h"
+#include "NVIC.h"
+#include "PIT.h"
+#include "String_conversion.h"
+#include "TeraTerm_Display.h"
+#include "UART.h"
+
+typedef enum {
+	MENU_ST,
+	MANUAL_ST,
+	SEQUENCE_ST
+} Menu_states_t;
+
+Menu_states_t menu_state(uart_channel_t terminal);
+
+Menu_states_t manual_state(uart_channel_t terminal);
+
+Menu_states_t sequence_state(uart_channel_t terminal);
+
+uint8_t g_notes[10];
 
 int main(void) {
 
@@ -23,4 +49,45 @@ int main(void) {
 
     }
     return 0 ;
+}
+
+Menu_states_t menu_state(uart_channel_t terminal)
+{
+	static uint8_t menu_initialized = FALSE;
+	Menu_states_t state = MENU_ST;
+
+	if(0 == menu_initialized[terminal])
+	{
+		UART_put_string(terminal, "\033[2J");
+		UART_put_string(terminal, "\033[38;5;202m");
+		UART_put_string(terminal, "\033[48;5;15m");
+		UART_put_string(terminal, "\033[H");
+		UART_put_string(terminal, "1) Modo manual\r\n");
+		UART_put_string(terminal, "2) Modo secuencia\r\n");
+		UART_put_string(terminal, "\r\n");
+		menu_initialized = TRUE;
+	}
+
+	if(UART_MailBoxFlag(terminal))
+	{
+		/* Moves the mailbox data to start in 0 */
+		uint8_t data = UART_MailBoxData(terminal) - '0';
+		/* Checks if it's a valid value */
+		if(MAN_MODE == data)
+		{
+			state = MANUAL_ST;
+		}
+		else if(SEQ_MODE == data)
+		{
+			state = SEQUENCE_ST;
+		}
+	}
+	return state;
+}
+
+Menu_states_t manual_state(uart_channel_t terminal)
+{
+	static uint8_t manual_menu_initialized = FALSE;
+	Menu_states_t state = MANUAL_ST;
+
 }
